@@ -16,13 +16,25 @@ $(document).ready( function() {
     writeAll();
     $('#back').toggle();
 
+    $('#a1').click( function() {
+        if (pointer < Object.keys(quizdata).length || results.length + 1 == Object.keys(quizdata).length) {
+            results.push("a1")
+        }
+    });
+
+    $('#a2').click( function() {
+        if (pointer < Object.keys(quizdata).length || results.length + 1 == Object.keys(quizdata).length) {   
+            results.push("a2");
+        }
+    });
+
     $('.answer').click( function() {
         if (pointer < Object.keys(quizdata).length) {
             pointer++;
             writeAll();
-            results.push("qwe");
+            //results.push("qwe");
         } else if (results.length + 1 == Object.keys(quizdata).length) {
-            results.push("qwe");
+            //results.push("qwe");
         };
         if (pointer == 2) {
             $('#back').toggle();
