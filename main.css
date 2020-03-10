@@ -8,7 +8,7 @@ header {
     background: #111;
 }
 
-#container {
+.container {
     width:90%;
     max-width: 400px;
     margin: auto;

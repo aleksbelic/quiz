@@ -6,15 +6,20 @@ let pointer = results.length + 1;
 //console.log(pointer);
 
 function writeAll() {
-    $('h2').html('Frage ' + pointer);
-    $('p').html(quizdata["item" + pointer].q);
+    $('#questions h2').html('Frage ' + pointer);
+    $('#questions p').html(quizdata["item" + pointer].q);
     $('#a1').html(quizdata["item" + pointer].a1);
     $('#a2').html(quizdata["item" + pointer].a2);
+};
+
+function showResult() {
+    $('#result p').html(results);
 };
 
 $(document).ready( function() {
     writeAll();
     $('#back').toggle();
+    $('#result').toggle();
 
     $('#a1').click( function() {
         if (pointer < Object.keys(quizdata).length || results.length + 1 == Object.keys(quizdata).length) {
@@ -32,6 +37,11 @@ $(document).ready( function() {
         if (pointer < Object.keys(quizdata).length + 1) {
             pointer++;
         };
+        if (pointer == Object.keys(quizdata).length + 1) {
+            $('#questions').toggle();
+            $('#result').toggle();
+            showResult();
+        };
         if (pointer <= Object.keys(quizdata).length) {
             writeAll();
         };
@@ -46,14 +56,23 @@ $(document).ready( function() {
         if (pointer == 2) {
             $('#back').toggle();
         };
-        if (pointer == Object.keys(quizdata).length + 1) {
-            //results.pop();
-        };
         if (pointer > 1) {
             pointer--;
             writeAll();
             results.pop();
         };
+        console.log(pointer);
+        console.log(results);
+    });
+
+    $('#reset').click( function() {
+        results = [];
+        pointer = results.length + 1;
+        writeAll();
+        $('#questions').toggle();
+        $('#result').toggle();
+        $('#back').toggle();
+
         console.log(pointer);
         console.log(results);
     });
