@@ -3,7 +3,7 @@ let results = [];
 
 let pointer = results.length + 1;
 
-console.log(pointer);
+//console.log(pointer);
 
 function writeAll() {
     $('h2').html('Frage ' + pointer);
@@ -29,16 +29,16 @@ $(document).ready( function() {
     });
 
     $('.answer').click( function() {
-        if (pointer < Object.keys(quizdata).length) {
+        if (pointer < Object.keys(quizdata).length + 1) {
             pointer++;
+        };
+        if (pointer <= Object.keys(quizdata).length) {
             writeAll();
-            //results.push("qwe");
-        } else if (results.length + 1 == Object.keys(quizdata).length) {
-            //results.push("qwe");
         };
         if (pointer == 2) {
             $('#back').toggle();
         };
+        console.log(pointer);
         console.log(results);
     });
 
@@ -46,14 +46,15 @@ $(document).ready( function() {
         if (pointer == 2) {
             $('#back').toggle();
         };
-        if (pointer == Object.keys(quizdata).length) {
-            results.pop();
+        if (pointer == Object.keys(quizdata).length + 1) {
+            //results.pop();
         };
         if (pointer > 1) {
             pointer--;
             writeAll();
             results.pop();
         };
+        console.log(pointer);
         console.log(results);
     });
 });
