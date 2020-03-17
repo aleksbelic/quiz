@@ -1,3 +1,23 @@
+const config = {
+    numberOfDimensions : 4,
+    dim1a : "Extraversion",
+    dim1a_code : "e",
+    dim1b : "Introversion",
+    dim1b_code : "i",
+    dim2a : "Intuition",
+    dim2a_code : "n",
+    dim2b : "Sensing",
+    dim2b_code : "s",
+    dim3a : "Thinking",
+    dim3a_code : "t",
+    dim3b : "Feeling",
+    dim3b_code : "f",
+    dim4a : "Probing",
+    dim4a_code : "p",
+    dim4b : "Judging",
+    dim4b_code : "j"
+};
+
 const quizdata = {
 
     item1 : {
