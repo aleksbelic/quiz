@@ -71,8 +71,8 @@ $(document).ready( function() {
         };
         if (pointer > 1) {
             pointer--;
-            writeAll();
             results.pop();
+            writeAll();
         };
     });
 
