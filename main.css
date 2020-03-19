@@ -30,3 +30,29 @@ button {
     width: 50%;
     margin: 15px auto 0;
 }
+
+/* ~~~ PROGRESS BAR ~~~ */
+
+#bar {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 22px;
+    margin: 25px auto;
+    background-color: grey;
+}
+
+#progress {
+    display: block;
+    width: 1%;
+    height: 22px;
+    background-color: blue;
+}
+
+#bar span {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%);
+    color: white;
+}

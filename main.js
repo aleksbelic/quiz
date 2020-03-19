@@ -8,6 +8,8 @@ function writeAll() {
     $('#questions p').html(quizdata["item" + pointer].q);
     $('#a1').html(quizdata["item" + pointer].a1);
     $('#a2').html(quizdata["item" + pointer].a2);
+    $('#bar span').html((results.length / Object.keys(quizdata).length * 100).toFixed(0) + ' %');
+    $('#progress').css("width", (results.length / Object.keys(quizdata).length * 100).toFixed(0)+"%");
 };
 
 function showResult() {
