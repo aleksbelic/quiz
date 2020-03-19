@@ -37,28 +37,26 @@ $(document).ready( function() {
     $('#result').toggle();
 
     $('#a1').click( function() {
-        if (pointer < Object.keys(quizdata).length || results.length + 1 == Object.keys(quizdata).length) {
+        if (pointer <= Object.keys(quizdata).length) {
             results.push(quizdata["item" + pointer].a1_dim)
         }
     });
 
     $('#a2').click( function() {
-        if (pointer < Object.keys(quizdata).length || results.length + 1 == Object.keys(quizdata).length) {   
+        if (pointer <= Object.keys(quizdata).length) {   
             results.push(quizdata["item" + pointer].a2_dim);
         }
     });
 
     $('.answer').click( function() {
-        if (pointer < Object.keys(quizdata).length + 1) {
+        if (pointer <= Object.keys(quizdata).length) {
             pointer++;
+            writeAll();
         };
-        if (pointer == Object.keys(quizdata).length + 1) {
+        if (pointer > Object.keys(quizdata).length) {
             $('#questions').toggle();
             $('#result').toggle();
             showResult();
-        };
-        if (pointer <= Object.keys(quizdata).length) {
-            writeAll();
         };
         if (pointer == 2) {
             $('#back').toggle();
