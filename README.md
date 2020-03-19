@@ -1,7 +1,6 @@
 # quiz
 
 Todo
-* refactor onClick conditionals
-* add progress bar
-* use real data
+* calculate result string
+* refactor loop
 * save test results
