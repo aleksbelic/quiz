@@ -19,16 +19,36 @@ function showResult() {
         return prev;
     }, {});
 
+    let resultStr = "";
+
     for (let i = 1; i <= config.numberOfDimensions; i++) {
-        // set dominant trait => map.e > map.i || map.i == undefined ? dim1Name = 'Extraversion' : dim1Name = 'Introversion';
-        eval('map[config.dim'+i+'a_code] > map[config.dim'+i+'b_code] || map[config.dim'+i+'b_code] == undefined ? dim'+i+'Name = config.dim'+i+'a : dim'+i+'Name = config.dim'+i+'b;');
-        // count dominant trait answers => map.e > map.i || map.i == undefined ? dim1Count = map.e : dim1Count = map.i;
-        eval('map[config.dim'+i+'a_code] > map[config.dim'+i+'b_code] || map[config.dim'+i+'b_code] == undefined ? dim'+i+'Count = map[config.dim'+i+'a_code] : dim'+i+'Count = map[config.dim'+i+'b_code];');
-        // calculate percent => map.e == undefined || map.i == undefined ? dim1Percent = 100 : dim1Percent = (dim1Count/(map.e + map.i)*100).toFixed(1);
-        eval('map[config.dim'+i+'a_code] == undefined || map[config.dim'+i+'b_code] == undefined ? dim'+i+'Percent = 100 : dim'+i+'Percent = (dim'+i+'Count/(map[config.dim'+i+'a_code] + map[config.dim'+i+'b_code])*100).toFixed(1);');
-        // write html => $('#dim1').html(dim1Name + ' : ' + dim1Count + ' (' + dim1Percent + '%)');
+        
+        // set dominant trait
+        eval('map[config.dimension'+i+'.code] > map[config.dimension'+i+'.opCode] || map[config.dimension'+i+'.opCode] == undefined ? dim'+i+'Name = config.dimension'+i+'.name : dim'+i+'Name = config.dimension'+i+'.opposite;');
+        
+        /* let curCode = 'config.dimension'+i+'.code';
+        let curOpCode = 'config.dimension'+i+'.opCode';
+        let curName = 'config.dimension'+i+'.name';
+        let curOpposite = 'config.dimension'+i+'.opposite';
+        let curDimName = 'dim'+i+'Name';
+
+        map[curCode] > map[curOpCode] || map[curOpCode] == undefined ? curDimName = curName : curDimName = curOpposite; */
+        
+        // concat to result string
+        eval('dim'+i+'Name == config.dimension'+i+'.name ? resultStr += config.dimension'+i+'.code : resultStr += config.dimension'+i+'.opCode;');
+        
+        // count dominant trait answers 
+        eval('map[config.dimension'+i+'.code] > map[config.dimension'+i+'.opCode] || map[config.dimension'+i+'.opCode] == undefined ? dim'+i+'Count = map[config.dimension'+i+'.code] : dim'+i+'Count = map[config.dimension'+i+'.opCode];');
+        
+        // calculate percent 
+        eval('map[config.dimension'+i+'.code] == undefined || map[config.dimension'+i+'.opCode] == undefined ? dim'+i+'Percent = 100 : dim'+i+'Percent = (dim'+i+'Count/(map[config.dimension'+i+'.code] + map[config.dimension'+i+'.opCode])*100).toFixed(1);');
+        
+        // write html
         eval('$("#dim'+i+'").html(dim'+i+'Name + " : " + dim'+i+'Count + " (" + dim'+i+'Percent + "%)");');
+
     };
+
+    $('#result h2').html('Du bist ein ' + resultStr.toUpperCase());
 };
 
 $(document).ready( function() {
@@ -51,12 +71,14 @@ $(document).ready( function() {
     $('.answer').click( function() {
         if (pointer <= Object.keys(quizdata).length) {
             pointer++;
-            writeAll();
         };
         if (pointer > Object.keys(quizdata).length) {
             $('#questions').toggle();
             $('#result').toggle();
             showResult();
+        };
+        if (pointer <= Object.keys(quizdata).length) {
+            writeAll();
         };
         if (pointer == 2) {
             $('#back').toggle();
