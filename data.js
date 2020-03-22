@@ -1,21 +1,29 @@
 const config = {
     numberOfDimensions : 4,
-    dim1a : "Extraversion",
-    dim1a_code : "e",
-    dim1b : "Introversion",
-    dim1b_code : "i",
-    dim2a : "Intuition",
-    dim2a_code : "n",
-    dim2b : "Sensing",
-    dim2b_code : "s",
-    dim3a : "Thinking",
-    dim3a_code : "t",
-    dim3b : "Feeling",
-    dim3b_code : "f",
-    dim4a : "Probing",
-    dim4a_code : "p",
-    dim4b : "Judging",
-    dim4b_code : "j"
+    dimension1 : {
+        name : "Extraversion",
+        code : "e",
+        opposite : "Introversion",
+        opCode : "i"
+    },
+    dimension2 : {
+        name : "Intuition",
+        code : "n",
+        opposite : "Sensing",
+        opCode : "s"
+    },
+    dimension3 : {
+        name : "Thinking",
+        code : "t",
+        opposite : "Feeling",
+        opCode : "f"
+    },
+    dimension4 : {
+        name : "Probing",
+        code : "p",
+        opposite : "Judging",
+        opCode : "j"
+    }
 };
 
 const quizdata = {
