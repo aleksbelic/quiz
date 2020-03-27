@@ -5,11 +5,11 @@ let results = [];
 
 function writeAll() {
     $('#questions h2').html('Frage ' + pointer);
-    $('#questions p').html(quizdata["item" + pointer].q);
-    $('#a1').html(quizdata["item" + pointer].a1);
-    $('#a2').html(quizdata["item" + pointer].a2);
-    $('#bar span').html((results.length / Object.keys(quizdata).length * 100).toFixed(0) + ' %');
-    $('#progress').css("width", (results.length / Object.keys(quizdata).length * 100).toFixed(0)+"%");
+    $('#questions p').html(questions["item" + pointer].q);
+    $('#a1').html(questions["item" + pointer].a1);
+    $('#a2').html(questions["item" + pointer].a2);
+    $('#bar span').html((results.length / Object.keys(questions).length * 100).toFixed(0) + ' %');
+    $('#progress').css("width", (results.length / Object.keys(questions).length * 100).toFixed(0)+"%");
 };
 
 function showResult() {
@@ -59,40 +59,45 @@ function showResult() {
 };
 
 $(document).ready( function() {
-    writeAll();
+
+    // start up
     $('#back').toggle();
     $('#result').toggle();
+    writeAll();
 
+    // event listeners
     $('#a1').click( function() {
-        results.push(quizdata["item" + pointer].a1_dim);
+        results.push(questions["item" + pointer].a1_dim);
     });
 
     $('#a2').click( function() {
-        results.push(quizdata["item" + pointer].a2_dim);
+        results.push(questions["item" + pointer].a2_dim);
     });
 
     $('.answer').click( function() {
-        if (pointer <= Object.keys(quizdata).length) {
-            pointer++;
-        };
-        if (pointer > Object.keys(quizdata).length) {
-            $('#questions').toggle();
-            $('#result').toggle();
-            showResult();
-        };
-        if (pointer <= Object.keys(quizdata).length) {
-            writeAll();
-        };
         if (pointer == 2) {
             $('#back').toggle();
+            pointer++;
+            writeAll();
+        } else if (pointer <= Object.keys(questions).length) {
+            pointer++;
+            if (pointer > Object.keys(questions).length) {
+                $('#questions').toggle();
+                $('#result').toggle();
+                showResult();
+                return;
+            };
+            writeAll();  
         };
     });
 
     $('#back').click( function() {
         if (pointer == 2) {
             $('#back').toggle();
-        };
-        if (pointer > 1) {
+            pointer--;
+            results.pop();
+            writeAll();
+        } else if (pointer > 2) {
             pointer--;
             results.pop();
             writeAll();
@@ -102,9 +107,9 @@ $(document).ready( function() {
     $('#reset').click( function() {
         pointer = 1;
         results = [];
-        writeAll();
         $('#questions').toggle();
         $('#result').toggle();
         $('#back').toggle();
+        writeAll();
     });
 });
