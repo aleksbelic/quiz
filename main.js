@@ -75,7 +75,7 @@ $(document).ready( function() {
     });
 
     $('.answer').click( function() {
-        if (pointer == 2) {
+        if (pointer == 1) {
             $('#back').toggle();
             pointer++;
             writeAll();
