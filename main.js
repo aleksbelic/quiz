@@ -85,9 +85,9 @@ $(document).ready( function() {
                 $('#questions').toggle();
                 $('#result').toggle();
                 showResult();
-                return;
+            } else {
+                writeAll(); 
             };
-            writeAll();  
         };
     });
 
