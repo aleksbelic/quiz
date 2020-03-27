@@ -92,16 +92,12 @@ $(document).ready( function() {
     });
 
     $('#back').click( function() {
-        if (pointer == 2) {
+        pointer--;
+        results.pop();
+        if (pointer == 1) {
             $('#back').toggle();
-            pointer--;
-            results.pop();
-            writeAll();
-        } else if (pointer > 2) {
-            pointer--;
-            results.pop();
-            writeAll();
         };
+        writeAll();    
     });
 
     $('#reset').click( function() {
