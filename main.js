@@ -26,21 +26,6 @@ function showResult() {
         // set dominant trait
         eval('map[dimensions.dimension'+i+'.codeA] > map[dimensions.dimension'+i+'.codeB] || map[dimensions.dimension'+i+'.codeB] == undefined ? dim'+i+'Name = dimensions.dimension'+i+'.nameA : dim'+i+'Name = dimensions.dimension'+i+'.nameB;');
         
-        /* tried to replace ternary to improve readability - unsuccessfully
-        if (eval('map[dimensions.dimension'+i+'.codeA]') > eval('map[dimensions.dimension'+i+'.codeB]') || eval('map[dimensions.dimension'+i+'.codeB]') == undefined) {
-            eval('dim'+i+'Name = map[dimensions.dimension'+i+'.nameA];');
-        } else {
-            eval('dim'+i+'Name = map[dimensions.dimension'+i+'.nameB];');
-        }; */
-
-        /* tried to use variables as selectors - unsuccessfully
-        let curCode = 'dimensions.dimension'+i+'.codeA';
-        let curOpCode = 'dimensions.dimension'+i+'.codeB';
-        let curName = 'dimensions.dimension'+i+'.nameA';
-        let curOpposite = 'dimensions.dimension'+i+'.nameB';
-        let curDimName = 'dim'+i+'Name';
-        map[curCode] > map[curOpCode] || map[curOpCode] == undefined ? curDimName = curName : curDimName = curOpposite; */
-        
         // concat to result string
         eval('dim'+i+'Name == dimensions.dimension'+i+'.nameA ? resultStr += dimensions.dimension'+i+'.codeA : resultStr += dimensions.dimension'+i+'.codeB;');
         
