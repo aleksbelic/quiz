@@ -1,7 +1,7 @@
 
-let results = [];
+let pointer = 1;
 
-let pointer = results.length + 1;
+let results = [];
 
 function writeAll() {
     $('#questions h2').html('Frage ' + pointer);
@@ -21,27 +21,34 @@ function showResult() {
 
     let resultStr = "";
 
-    for (let i = 1; i <= config.numberOfDimensions; i++) {
+    for (let i = 1; i <= Object.keys(dimensions).length; i++) {
         
         // set dominant trait
-        eval('map[config.dimension'+i+'.code] > map[config.dimension'+i+'.opCode] || map[config.dimension'+i+'.opCode] == undefined ? dim'+i+'Name = config.dimension'+i+'.name : dim'+i+'Name = config.dimension'+i+'.opposite;');
+        eval('map[dimensions.dimension'+i+'.code] > map[dimensions.dimension'+i+'.opCode] || map[dimensions.dimension'+i+'.opCode] == undefined ? dim'+i+'Name = dimensions.dimension'+i+'.name : dim'+i+'Name = dimensions.dimension'+i+'.opposite;');
         
-        /* let curCode = 'config.dimension'+i+'.code';
-        let curOpCode = 'config.dimension'+i+'.opCode';
-        let curName = 'config.dimension'+i+'.name';
-        let curOpposite = 'config.dimension'+i+'.opposite';
-        let curDimName = 'dim'+i+'Name';
+        /* tried to replace ternary to improve readability - unsuccessfully
+        if (eval('map[dimensions.dimension'+i+'.code]') > eval('map[dimensions.dimension'+i+'.opCode]') || eval('map[dimensions.dimension'+i+'.opCode]') == undefined) {
+            eval('dim'+i+'Name = map[dimensions.dimension'+i+'.name];');
+        } else {
+            eval('dim'+i+'Name = map[dimensions.dimension'+i+'.opposite];');
+        }; */
 
+        /* tried to use variables as selectors - unsuccessfully
+        let curCode = 'dimensions.dimension'+i+'.code';
+        let curOpCode = 'dimensions.dimension'+i+'.opCode';
+        let curName = 'dimensions.dimension'+i+'.name';
+        let curOpposite = 'dimensions.dimension'+i+'.opposite';
+        let curDimName = 'dim'+i+'Name';
         map[curCode] > map[curOpCode] || map[curOpCode] == undefined ? curDimName = curName : curDimName = curOpposite; */
         
         // concat to result string
-        eval('dim'+i+'Name == config.dimension'+i+'.name ? resultStr += config.dimension'+i+'.code : resultStr += config.dimension'+i+'.opCode;');
+        eval('dim'+i+'Name == dimensions.dimension'+i+'.name ? resultStr += dimensions.dimension'+i+'.code : resultStr += dimensions.dimension'+i+'.opCode;');
         
         // count dominant trait answers 
-        eval('map[config.dimension'+i+'.code] > map[config.dimension'+i+'.opCode] || map[config.dimension'+i+'.opCode] == undefined ? dim'+i+'Count = map[config.dimension'+i+'.code] : dim'+i+'Count = map[config.dimension'+i+'.opCode];');
+        eval('map[dimensions.dimension'+i+'.code] > map[dimensions.dimension'+i+'.opCode] || map[dimensions.dimension'+i+'.opCode] == undefined ? dim'+i+'Count = map[dimensions.dimension'+i+'.code] : dim'+i+'Count = map[dimensions.dimension'+i+'.opCode];');
         
         // calculate percent 
-        eval('map[config.dimension'+i+'.code] == undefined || map[config.dimension'+i+'.opCode] == undefined ? dim'+i+'Percent = 100 : dim'+i+'Percent = (dim'+i+'Count/(map[config.dimension'+i+'.code] + map[config.dimension'+i+'.opCode])*100).toFixed(1);');
+        eval('map[dimensions.dimension'+i+'.code] == undefined || map[dimensions.dimension'+i+'.opCode] == undefined ? dim'+i+'Percent = 100 : dim'+i+'Percent = (dim'+i+'Count/(map[dimensions.dimension'+i+'.code] + map[dimensions.dimension'+i+'.opCode])*100).toFixed(1);');
         
         // write html
         eval('$("#dim'+i+'").html(dim'+i+'Name + " : " + dim'+i+'Count + " (" + dim'+i+'Percent + "%)");');
@@ -57,15 +64,11 @@ $(document).ready( function() {
     $('#result').toggle();
 
     $('#a1').click( function() {
-        if (pointer <= Object.keys(quizdata).length) {
-            results.push(quizdata["item" + pointer].a1_dim)
-        }
+        results.push(quizdata["item" + pointer].a1_dim);
     });
 
     $('#a2').click( function() {
-        if (pointer <= Object.keys(quizdata).length) {   
-            results.push(quizdata["item" + pointer].a2_dim);
-        }
+        results.push(quizdata["item" + pointer].a2_dim);
     });
 
     $('.answer').click( function() {
@@ -97,8 +100,8 @@ $(document).ready( function() {
     });
 
     $('#reset').click( function() {
+        pointer = 1;
         results = [];
-        pointer = results.length + 1;
         writeAll();
         $('#questions').toggle();
         $('#result').toggle();

@@ -1,5 +1,5 @@
-const config = {
-    numberOfDimensions : 4,
+const dimensions = {
+
     dimension1 : {
         name : "Extraversion",
         code : "e",
@@ -121,6 +121,5 @@ const quizdata = {
         a2 : "No",
         a2_dim : "j"
     }
-
 };
 
