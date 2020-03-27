@@ -7,125 +7,125 @@ const config = {
 const dimensions = {
 
     dimension1 : {
-        name : "Extraversion",
-        code : "e",
-        opposite : "Introversion",
-        opCode : "i"
+        nameA : "Extraversion",
+        codeA : "e",
+        nameB : "Introversion",
+        codeB : "i"
     },
     dimension2 : {
-        name : "Intuition",
-        code : "n",
-        opposite : "Sensing",
-        opCode : "s"
+        nameA : "Intuition",
+        codeA : "n",
+        nameB : "Sensing",
+        codeB : "s"
     },
     dimension3 : {
-        name : "Thinking",
-        code : "t",
-        opposite : "Feeling",
-        opCode : "f"
+        nameA : "Thinking",
+        codeA : "t",
+        nameB : "Feeling",
+        codeB : "f"
     },
     dimension4 : {
-        name : "Probing",
-        code : "p",
-        opposite : "Judging",
-        opCode : "j"
+        nameA : "Probing",
+        codeA : "p",
+        nameB : "Judging",
+        codeB : "j"
     }
 };
 
 const questions = {
 
-    item1 : {
-        q : "Question text example number 1",
-        a1 : "Answer E",
-        a1_dim : "e",
-        a2 : "Answer I",
-        a2_dim : "i"
+    question1 : {
+        questionText : "Question text example number 1",
+        answer1 : "Answer E",
+        answer1Code : "e",
+        answer2 : "Answer I",
+        answer2Code : "i"
     },
 
-    item2 : {
-        q : "Question text example number 2",
-        a1 : "Answer N",
-        a1_dim : "n",
-        a2 : "Answer S",
-        a2_dim : "s"
+    question2 : {
+        questionText : "Question text example number 2",
+        answer1 : "Answer N",
+        answer1Code : "n",
+        answer2 : "Answer S",
+        answer2Code : "s"
     },
 
-    item3 : {
-        q : "Question text example number 3",
-        a1 : "Answer T",
-        a1_dim : "t",
-        a2 : "Answer F",
-        a2_dim : "f"
+    question3 : {
+        questionText : "Question text example number 3",
+        answer1 : "Answer T",
+        answer1Code : "t",
+        answer2 : "Answer F",
+        answer2Code : "f"
     },
 
-    item4 : {
-        q : "Question text example number 4",
-        a1 : "Answer P",
-        a1_dim : "p",
-        a2 : "Answer J",
-        a2_dim : "j"
+    question4 : {
+        questionText : "Question text example number 4",
+        answer1 : "Answer P",
+        answer1Code : "p",
+        answer2 : "Answer J",
+        answer2Code : "j"
     },
-    item5 : {
-        q : "Question text example number 5",
-        a1 : "Answer E",
-        a1_dim : "e",
-        a2 : "Answer I",
-        a2_dim : "i"
-    },
-
-    item6 : {
-        q : "Question text example number 6",
-        a1 : "Answer N",
-        a1_dim : "n",
-        a2 : "Answer S",
-        a2_dim : "s"
+    question5 : {
+        questionText : "Question text example number 5",
+        answer1 : "Answer E",
+        answer1Code : "e",
+        answer2 : "Answer I",
+        answer2Code : "i"
     },
 
-    item7 : {
-        q : "Question text example number 7",
-        a1 : "Answer T",
-        a1_dim : "t",
-        a2 : "Answer F",
-        a2_dim : "f"
+    question6 : {
+        questionText : "Question text example number 6",
+        answer1 : "Answer N",
+        answer1Code : "n",
+        answer2 : "Answer S",
+        answer2Code : "s"
     },
 
-    item8 : {
-        q : "Question text example number 8",
-        a1 : "Answer P",
-        a1_dim : "p",
-        a2 : "Answer J",
-        a2_dim : "j"
-    },
-    item9 : {
-        q : "Question text example number 9",
-        a1 : "Answer E",
-        a1_dim : "e",
-        a2 : "Answer I",
-        a2_dim : "i"
+    question7 : {
+        questionText : "Question text example number 7",
+        answer1 : "Answer T",
+        answer1Code : "t",
+        answer2 : "Answer F",
+        answer2Code : "f"
     },
 
-    item10 : {
-        q : "Question text example number 10",
-        a1 : "Answer N",
-        a1_dim : "n",
-        a2 : "Answer S",
-        a2_dim : "s"
+    question8 : {
+        questionText : "Question text example number 8",
+        answer1 : "Answer P",
+        answer1Code : "p",
+        answer2 : "Answer J",
+        answer2Code : "j"
+    },
+    question9 : {
+        questionText : "Question text example number 9",
+        answer1 : "Answer E",
+        answer1Code : "e",
+        answer2 : "Answer I",
+        answer2Code : "i"
     },
 
-    item11 : {
-        q : "Question text example number 11",
-        a1 : "Answer T",
-        a1_dim : "t",
-        a2 : "Answer F",
-        a2_dim : "f"
+    question10 : {
+        questionText : "Question text example number 10",
+        answer1 : "Answer N",
+        answer1Code : "n",
+        answer2 : "Answer S",
+        answer2Code : "s"
     },
 
-    item12 : {
-        q : "Question text example number 12",
-        a1 : "Answer P",
-        a1_dim : "p",
-        a2 : "Answer J",
-        a2_dim : "j"
+    question11 : {
+        questionText : "Question text example number 11",
+        answer1 : "Answer T",
+        answer1Code : "t",
+        answer2 : "Answer F",
+        answer2Code : "f"
+    },
+
+    question12 : {
+        questionText : "Question text example number 12",
+        answer1 : "Answer P",
+        answer1Code : "p",
+        answer2 : "Answer J",
+        answer2Code : "j"
     }
 };
 

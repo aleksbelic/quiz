@@ -5,9 +5,9 @@ let results = [];
 
 function writeAll() {
     $('#questions h2').html('Frage ' + pointer);
-    $('#questions p').html(questions["item" + pointer].q);
-    $('#a1').html(questions["item" + pointer].a1);
-    $('#a2').html(questions["item" + pointer].a2);
+    $('#questions p').html(questions["question" + pointer].questionText);
+    $('#a1').html(questions["question" + pointer].answer1);
+    $('#a2').html(questions["question" + pointer].answer2);
     $('#bar span').html((results.length / Object.keys(questions).length * 100).toFixed(0) + ' %');
     $('#progress').css("width", (results.length / Object.keys(questions).length * 100).toFixed(0)+"%");
 };
@@ -24,31 +24,31 @@ function showResult() {
     for (let i = 1; i <= Object.keys(dimensions).length; i++) {
         
         // set dominant trait
-        eval('map[dimensions.dimension'+i+'.code] > map[dimensions.dimension'+i+'.opCode] || map[dimensions.dimension'+i+'.opCode] == undefined ? dim'+i+'Name = dimensions.dimension'+i+'.name : dim'+i+'Name = dimensions.dimension'+i+'.opposite;');
+        eval('map[dimensions.dimension'+i+'.codeA] > map[dimensions.dimension'+i+'.codeB] || map[dimensions.dimension'+i+'.codeB] == undefined ? dim'+i+'Name = dimensions.dimension'+i+'.nameA : dim'+i+'Name = dimensions.dimension'+i+'.nameB;');
         
         /* tried to replace ternary to improve readability - unsuccessfully
-        if (eval('map[dimensions.dimension'+i+'.code]') > eval('map[dimensions.dimension'+i+'.opCode]') || eval('map[dimensions.dimension'+i+'.opCode]') == undefined) {
-            eval('dim'+i+'Name = map[dimensions.dimension'+i+'.name];');
+        if (eval('map[dimensions.dimension'+i+'.codeA]') > eval('map[dimensions.dimension'+i+'.codeB]') || eval('map[dimensions.dimension'+i+'.codeB]') == undefined) {
+            eval('dim'+i+'Name = map[dimensions.dimension'+i+'.nameA];');
         } else {
-            eval('dim'+i+'Name = map[dimensions.dimension'+i+'.opposite];');
+            eval('dim'+i+'Name = map[dimensions.dimension'+i+'.nameB];');
         }; */
 
         /* tried to use variables as selectors - unsuccessfully
-        let curCode = 'dimensions.dimension'+i+'.code';
-        let curOpCode = 'dimensions.dimension'+i+'.opCode';
-        let curName = 'dimensions.dimension'+i+'.name';
-        let curOpposite = 'dimensions.dimension'+i+'.opposite';
+        let curCode = 'dimensions.dimension'+i+'.codeA';
+        let curOpCode = 'dimensions.dimension'+i+'.codeB';
+        let curName = 'dimensions.dimension'+i+'.nameA';
+        let curOpposite = 'dimensions.dimension'+i+'.nameB';
         let curDimName = 'dim'+i+'Name';
         map[curCode] > map[curOpCode] || map[curOpCode] == undefined ? curDimName = curName : curDimName = curOpposite; */
         
         // concat to result string
-        eval('dim'+i+'Name == dimensions.dimension'+i+'.name ? resultStr += dimensions.dimension'+i+'.code : resultStr += dimensions.dimension'+i+'.opCode;');
+        eval('dim'+i+'Name == dimensions.dimension'+i+'.nameA ? resultStr += dimensions.dimension'+i+'.codeA : resultStr += dimensions.dimension'+i+'.codeB;');
         
         // count dominant trait answers 
-        eval('map[dimensions.dimension'+i+'.code] > map[dimensions.dimension'+i+'.opCode] || map[dimensions.dimension'+i+'.opCode] == undefined ? dim'+i+'Count = map[dimensions.dimension'+i+'.code] : dim'+i+'Count = map[dimensions.dimension'+i+'.opCode];');
+        eval('map[dimensions.dimension'+i+'.codeA] > map[dimensions.dimension'+i+'.codeB] || map[dimensions.dimension'+i+'.codeB] == undefined ? dim'+i+'Count = map[dimensions.dimension'+i+'.codeA] : dim'+i+'Count = map[dimensions.dimension'+i+'.codeB];');
         
         // calculate percent 
-        eval('map[dimensions.dimension'+i+'.code] == undefined || map[dimensions.dimension'+i+'.opCode] == undefined ? dim'+i+'Percent = 100 : dim'+i+'Percent = (dim'+i+'Count/(map[dimensions.dimension'+i+'.code] + map[dimensions.dimension'+i+'.opCode])*100).toFixed(1);');
+        eval('map[dimensions.dimension'+i+'.codeA] == undefined || map[dimensions.dimension'+i+'.codeB] == undefined ? dim'+i+'Percent = 100 : dim'+i+'Percent = (dim'+i+'Count/(map[dimensions.dimension'+i+'.codeA] + map[dimensions.dimension'+i+'.codeB])*100).toFixed(1);');
         
         // write html
         eval('$("#dim'+i+'").html(dim'+i+'Name + " : " + dim'+i+'Count + " (" + dim'+i+'Percent + "%)");');
@@ -67,11 +67,11 @@ $(document).ready( function() {
 
     // event listeners
     $('#a1').click( function() {
-        results.push(questions["item" + pointer].a1_dim);
+        results.push(questions["question" + pointer].answer1Code);
     });
 
     $('#a2').click( function() {
-        results.push(questions["item" + pointer].a2_dim);
+        results.push(questions["question" + pointer].answer2Code);
     });
 
     $('.answer').click( function() {
