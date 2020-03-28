@@ -13,7 +13,6 @@ function writeAll() {
 };
 
 function showResult() {
-    // map results
     let map = results.reduce(function(prev, cur) {
         prev[cur] = (prev[cur] || 0) + 1;
         return prev;
@@ -22,31 +21,20 @@ function showResult() {
     let resultStr = "";
 
     for (let i = 1; i <= Object.keys(dimensions).length; i++) {
-        
-        // using template literals for variable embedding
+
         let curCodeA = `${dimensions['dimension' + i]['codeA']}`;
         let curCodeB = `${dimensions['dimension' + i]['codeB']}`;
-        // test
-        console.log('curCodeA: ' + curCodeA);
-        console.log('curCodeB: ' + curCodeB);
-        console.log('map[' + curCodeA + ']: ' + map[curCodeA]);
-        console.log('map[' + curCodeB + ']: ' + map[curCodeB]);
+        let curNameA = `${dimensions['dimension' + i]['nameA']}`;
+        let curNameB = `${dimensions['dimension' + i]['nameB']}`;
+        let curDimName = `${'dim' + i + 'Name'}`;
+        let curDimCount = `${'dim' + i + 'Count'}`;
+        let curDimPercent = `${'dim' + i + 'Percent'}`;
 
-        // set dominant trait
-        eval('map[dimensions.dimension'+i+'.codeA] > map[dimensions.dimension'+i+'.codeB] || map[dimensions.dimension'+i+'.codeB] == undefined ? dim'+i+'Name = dimensions.dimension'+i+'.nameA : dim'+i+'Name = dimensions.dimension'+i+'.nameB;');
-        
-        // concat to result string
-        eval('dim'+i+'Name == dimensions.dimension'+i+'.nameA ? resultStr += dimensions.dimension'+i+'.codeA : resultStr += dimensions.dimension'+i+'.codeB;');
-        
-        // count dominant trait answers 
-        eval('map[dimensions.dimension'+i+'.codeA] > map[dimensions.dimension'+i+'.codeB] || map[dimensions.dimension'+i+'.codeB] == undefined ? dim'+i+'Count = map[dimensions.dimension'+i+'.codeA] : dim'+i+'Count = map[dimensions.dimension'+i+'.codeB];');
-        
-        // calculate percent 
-        eval('map[dimensions.dimension'+i+'.codeA] == undefined || map[dimensions.dimension'+i+'.codeB] == undefined ? dim'+i+'Percent = 100 : dim'+i+'Percent = (dim'+i+'Count/(map[dimensions.dimension'+i+'.codeA] + map[dimensions.dimension'+i+'.codeB])*100).toFixed(1);');
-        
-        // write html
-        eval('$("#dim'+i+'").html(dim'+i+'Name + " : " + dim'+i+'Count + " (" + dim'+i+'Percent + "%)");');
-
+        map[curCodeA] > map[curCodeB] || map[curCodeB] == undefined ? curDimName = curNameA : curDimName = curNameB;
+        map[curCodeA] >map[curCodeB] || map[curCodeB] == undefined ? curDimCount = map[curCodeA] : curDimCount = map[curCodeB];
+        map[curCodeA] == undefined || map[curCodeB] == undefined ? curDimPercent = 100 : curDimPercent = (curDimCount/(map[curCodeA] + map[curCodeB])*100).toFixed(1);
+        curDimName == curNameA ? resultStr += curCodeA : resultStr += curCodeB;
+        $('#dim'+i).html(curDimName + " : " + curDimCount + " (" + curDimPercent + "%)");
     };
 
     $('#result h2').html('Du bist ein ' + resultStr.toUpperCase());
@@ -54,12 +42,10 @@ function showResult() {
 
 $(document).ready( function() {
 
-    // start up
     $('#back').toggle();
     $('#result').toggle();
     writeAll();
 
-    // event listeners
     $('#a1').click( function() {
         results.push(questions["question" + pointer].answer1Code);
     });
