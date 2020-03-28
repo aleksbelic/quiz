@@ -23,6 +23,15 @@ function showResult() {
 
     for (let i = 1; i <= Object.keys(dimensions).length; i++) {
         
+        // using template literals for variable embedding
+        let curCodeA = `${dimensions['dimension' + i]['codeA']}`;
+        let curCodeB = `${dimensions['dimension' + i]['codeB']}`;
+        // test
+        console.log('curCodeA: ' + curCodeA);
+        console.log('curCodeB: ' + curCodeB);
+        console.log('map[' + curCodeA + ']: ' + map[curCodeA]);
+        console.log('map[' + curCodeB + ']: ' + map[curCodeB]);
+
         // set dominant trait
         eval('map[dimensions.dimension'+i+'.codeA] > map[dimensions.dimension'+i+'.codeB] || map[dimensions.dimension'+i+'.codeB] == undefined ? dim'+i+'Name = dimensions.dimension'+i+'.nameA : dim'+i+'Name = dimensions.dimension'+i+'.nameB;');
         
