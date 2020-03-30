@@ -10,7 +10,7 @@ function writeAll() {
     $('#a2').html(questions["question" + pointer].answer2);
     $('#bar span').html((results.length / Object.keys(questions).length * 100).toFixed(0) + ' %');
     $('#progress').css("width", (results.length / Object.keys(questions).length * 100).toFixed(0)+"%");
-};
+}
 
 function showResult() {
     let map = results.reduce(function(prev, cur) {
@@ -35,10 +35,10 @@ function showResult() {
         map[curCodeA] == undefined || map[curCodeB] == undefined ? curDimPercent = 100 : curDimPercent = (curDimCount/(map[curCodeA] + map[curCodeB])*100).toFixed(1);
         curDimName == curNameA ? resultStr += curCodeA : resultStr += curCodeB;
         $('#dim'+i).html(curDimName + " : " + curDimCount + " (" + curDimPercent + "%)");
-    };
+    }
 
     $('#result h2').html('Du bist ein ' + resultStr.toUpperCase());
-};
+}
 
 $(document).ready( function() {
 
@@ -67,8 +67,8 @@ $(document).ready( function() {
                 showResult();
             } else {
                 writeAll(); 
-            };
-        };
+            }
+        }
     });
 
     $('#back').click( function() {
@@ -76,7 +76,7 @@ $(document).ready( function() {
         results.pop();
         if (pointer == 1) {
             $('#back').toggle();
-        };
+        }
         writeAll();    
     });
 
