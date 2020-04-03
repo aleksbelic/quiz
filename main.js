@@ -37,7 +37,7 @@ function showResult() {
         $('#dim'+i).html(curDimName + " : " + curDimCount + " (" + curDimPercent + "%)");
     }
 
-    $('#result h2').html('Du bist ein ' + resultStr.toUpperCase());
+    $('#result h2').html('Your\'re an ' + resultStr.toUpperCase());
 }
 
 $(document).ready( function() {
