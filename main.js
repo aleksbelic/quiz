@@ -26,9 +26,6 @@ function showResult() {
         let curCodeB = `${dimensions['dimension' + i]['codeB']}`;
         let curNameA = `${dimensions['dimension' + i]['nameA']}`;
         let curNameB = `${dimensions['dimension' + i]['nameB']}`;
-        let curDimName = `${'dim' + i + 'Name'}`;
-        let curDimCount = `${'dim' + i + 'Count'}`;
-        let curDimPercent = `${'dim' + i + 'Percent'}`;
 
         map[curCodeA] > map[curCodeB] || map[curCodeB] == undefined ? curDimName = curNameA : curDimName = curNameB;
         map[curCodeA] >map[curCodeB] || map[curCodeB] == undefined ? curDimCount = map[curCodeA] : curDimCount = map[curCodeB];
