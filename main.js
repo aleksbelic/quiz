@@ -4,7 +4,7 @@ let pointer = 1;
 let results = [];
 
 function writeAll() {
-    $('#questions h2').html('Frage ' + pointer);
+    $('#questions h2').html('Question ' + pointer);
     $('#questions p').html(questions["question" + pointer].questionText);
     $('#a1').html(questions["question" + pointer].answer1);
     $('#a2').html(questions["question" + pointer].answer2);
