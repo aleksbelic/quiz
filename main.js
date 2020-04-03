@@ -1,13 +1,23 @@
 
 let pointer = 1;
 
+let questionOrder = [];
+
 let results = [];
 
+// Durstenfeld shuffle ES6
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
+
 function writeAll() {
-    $('#questions h2').html('Question ' + pointer);
-    $('#questions p').html(questions["question" + pointer].questionText);
-    $('#a1').html(questions["question" + pointer].answer1);
-    $('#a2').html(questions["question" + pointer].answer2);
+    $('#questions h2').html('Question ' + questionOrder[pointer-1]);
+    $('#questions p').html(questions["question" + questionOrder[pointer-1]].questionText);
+    $('#a1').html(questions["question" + questionOrder[pointer-1]].answer1);
+    $('#a2').html(questions["question" + questionOrder[pointer-1]].answer2);
     $('#bar span').html((results.length / Object.keys(questions).length * 100).toFixed(0) + ' %');
     $('#progress').css("width", (results.length / Object.keys(questions).length * 100).toFixed(0)+"%");
 }
@@ -38,6 +48,14 @@ function showResult() {
 }
 
 $(document).ready( function() {
+
+    for (let i = 1; i <= Object.keys(questions).length; i++) {
+        questionOrder.push(i);
+    };
+
+    if (config.randomizeQuestions) {
+        shuffleArray(questionOrder);
+    };
 
     $('#back').toggle();
     $('#result').toggle();
@@ -83,6 +101,9 @@ $(document).ready( function() {
         $('#questions').toggle();
         $('#result').toggle();
         $('#back').toggle();
+        if (config.randomizeQuestions) {
+            shuffleArray(questionOrder);
+        };
         writeAll();
     });
 });
