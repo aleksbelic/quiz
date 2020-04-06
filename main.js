@@ -78,15 +78,15 @@ function showResult() {
 
 $(document).ready( function() {
 
-    // handles question order
+    // question order and start up
     for (let i = 1; i <= Object.keys(questions).length; i++) {
         questionOrder.push(i);
         if (i == Object.keys(questions).length && config.randomizeQuestions) {
             shuffleArray(questionOrder);
+        } else if (i == 1) {
+            writeAll();
         }
     }
-
-    writeAll();
 
     $('.answer').click( function(e) {
         
