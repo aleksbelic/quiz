@@ -14,6 +14,13 @@ function shuffleArray(array) {
 }
 
 function writeAll() {
+    /* if (config.randomizeAnswers && (Math.floor(Math.random() * 2) == 0)) {
+        $('#questions .answer:first').attr('id', 'a2');
+        $('#questions .answer:last').attr('id', 'a1');
+    } else {
+        $('#questions .answer:first').attr('id', 'a1');
+        $('#questions .answer:last').attr('id', 'a2');
+    }; */
     $('#questions h2').html('Question ' + questionOrder[pointer-1]);
     $('#questions p').html(questions["question" + questionOrder[pointer-1]].questionText);
     $('#a1').html(questions["question" + questionOrder[pointer-1]].answer1);
@@ -38,7 +45,7 @@ function showResult() {
         let curNameB = `${dimensions['dimension' + i]['nameB']}`;
 
         map[curCodeA] > map[curCodeB] || map[curCodeB] == undefined ? curDimName = curNameA : curDimName = curNameB;
-        map[curCodeA] >map[curCodeB] || map[curCodeB] == undefined ? curDimCount = map[curCodeA] : curDimCount = map[curCodeB];
+        map[curCodeA] > map[curCodeB] || map[curCodeB] == undefined ? curDimCount = map[curCodeA] : curDimCount = map[curCodeB];
         map[curCodeA] == undefined || map[curCodeB] == undefined ? curDimPercent = 100 : curDimPercent = (curDimCount/(map[curCodeA] + map[curCodeB])*100).toFixed(1);
         curDimName == curNameA ? resultStr += curCodeA : resultStr += curCodeB;
         $('#dim'+i).html(curDimName + " : " + curDimCount + " (" + curDimPercent + "%)");
@@ -51,10 +58,9 @@ $(document).ready( function() {
 
     for (let i = 1; i <= Object.keys(questions).length; i++) {
         questionOrder.push(i);
-    };
-
-    if (config.randomizeQuestions) {
-        shuffleArray(questionOrder);
+        if (i == Object.keys(questions).length && config.randomizeQuestions) {
+            shuffleArray(questionOrder);
+        };
     };
 
     $('#back').toggle();
