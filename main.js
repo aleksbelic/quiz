@@ -13,14 +13,18 @@ function shuffleArray(array) {
     }
 }
 
-function writeAll() {
-    /* if (config.randomizeAnswers && (Math.floor(Math.random() * 2) == 0)) {
+function shuffleButtons() {
+    if (config.randomizeAnswers && (Math.floor(Math.random() * 2) == 0)) {
         $('#questions .answer:first').attr('id', 'a2');
         $('#questions .answer:last').attr('id', 'a1');
     } else {
         $('#questions .answer:first').attr('id', 'a1');
         $('#questions .answer:last').attr('id', 'a2');
-    }; */
+    }
+}
+
+function writeAll() {
+    
     $('#questions h2').html('Question ' + questionOrder[pointer-1]);
     $('#questions p').html(questions["question" + questionOrder[pointer-1]].questionText);
     $('#a1').html(questions["question" + questionOrder[pointer-1]].answer1);
@@ -30,12 +34,14 @@ function writeAll() {
 }
 
 function showResult() {
+
     let map = results.reduce(function(prev, cur) {
         prev[cur] = (prev[cur] || 0) + 1;
         return prev;
     }, {});
 
     let resultStr = "";
+    let curDimName, curDimCount, curDimPercent;
 
     for (let i = 1; i <= Object.keys(dimensions).length; i++) {
 
@@ -60,25 +66,88 @@ $(document).ready( function() {
         questionOrder.push(i);
         if (i == Object.keys(questions).length && config.randomizeQuestions) {
             shuffleArray(questionOrder);
-        };
-    };
+        }
+    }
 
     $('#back').toggle();
     $('#result').toggle();
+    shuffleButtons();
     writeAll();
 
     $('#a1').click( function() {
-        results.push(questions["question" + pointer].answer1Code);
+
+        if (pointer == 1) {
+            $('#back').toggle();
+            
+            results.push(questions["question" + pointer].answer1Code);
+            console.log(results);
+            shuffleButtons();
+            pointer++;
+            
+            writeAll();
+        } else if (pointer <= Object.keys(questions).length) {
+            
+            results.push(questions["question" + pointer].answer1Code);
+            console.log(results);
+            shuffleButtons();
+            pointer++;
+            if (pointer > Object.keys(questions).length) {
+                $('#questions').toggle();
+                $('#result').toggle();
+                showResult();
+            } else {
+                
+                writeAll(); 
+            }
+        }
     });
 
     $('#a2').click( function() {
-        results.push(questions["question" + pointer].answer2Code);
+        
+        if (pointer == 1) {
+            $('#back').toggle();
+            
+            results.push(questions["question" + pointer].answer2Code);
+            console.log(results);
+            shuffleButtons();
+            pointer++;
+            
+            writeAll();
+        } else if (pointer <= Object.keys(questions).length) {
+            
+            results.push(questions["question" + pointer].answer2Code);
+            console.log(results);
+            shuffleButtons();
+            pointer++;
+            if (pointer > Object.keys(questions).length) {
+                $('#questions').toggle();
+                $('#result').toggle();
+                showResult();
+            } else {
+                
+                writeAll(); 
+            }
+        }
     });
 
-    $('.answer').click( function() {
+    /* .answer OOP
+
+    - results.push
+    - shuffleButtons
+    - pointer++
+    - (showResult)
+    - writeAll
+    
+    
+    */
+
+    /* $('.answer').click( function() {
+        console.log(results);
         if (pointer == 1) {
             $('#back').toggle();
             pointer++;
+            shuffleButtons();
+            // push needs to go here
             writeAll();
         } else if (pointer <= Object.keys(questions).length) {
             pointer++;
@@ -87,10 +156,12 @@ $(document).ready( function() {
                 $('#result').toggle();
                 showResult();
             } else {
+                shuffleButtons();
+                // and here ... I think
                 writeAll(); 
             }
         }
-    });
+    }); */
 
     $('#back').click( function() {
         pointer--;
@@ -109,7 +180,7 @@ $(document).ready( function() {
         $('#back').toggle();
         if (config.randomizeQuestions) {
             shuffleArray(questionOrder);
-        };
+        }
         writeAll();
     });
 });

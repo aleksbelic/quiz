@@ -1,7 +1,7 @@
 const config = {
 
     randomizeQuestions : false,
-    randomizeAnswers : false
+    randomizeAnswers : true
 };
 
 const dimensions = {
