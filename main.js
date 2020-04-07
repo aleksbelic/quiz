@@ -5,7 +5,7 @@ let questionOrder = [];
 
 let results = [];
 
-// Durstenfeld shuffle ES6
+// Durstenfeld shuffle
 function shuffleArray(array) {
 
     for (let i = array.length - 1; i > 0; i--) {
@@ -14,9 +14,9 @@ function shuffleArray(array) {
     }
 }
 
-function writeAll() {
+function updateDom() {
     
-    // toggle elements visibility
+    // toggle visibility of elements
     if (pointer == 1) {
         $('#back').css('display', 'none');
         $('#questions').css('display', 'block');
@@ -32,7 +32,7 @@ function writeAll() {
         $('#questions .answer:first').attr('id', 'a1');
         $('#questions .answer:last').attr('id', 'a2');
     }
-    // write to DOM
+    // update question related elements
     $('#questions h2').html('Question ' + questionOrder[pointer-1]);
     $('#questions p').html(questions["question" + questionOrder[pointer-1]].questionText);
     $('#a1').html(questions["question" + questionOrder[pointer-1]].answer1);
@@ -42,9 +42,6 @@ function writeAll() {
 }
 
 function showResult() {
-
-    $('#questions').css('display', 'none');
-    $('#result').css('display', 'block');
 
     let map = results.reduce(function(prev, cur) {
         prev[cur] = (prev[cur] || 0) + 1;
@@ -62,7 +59,7 @@ function showResult() {
         let curNameA = `${dimensions['dimension' + i]['nameA']}`;
         let curNameB = `${dimensions['dimension' + i]['nameB']}`;
 
-        // dominant dimension name
+        // dominant trait name
         map[curCodeA] > map[curCodeB] || map[curCodeB] == undefined ? curDimName = curNameA : curDimName = curNameB;
         // count
         map[curCodeA] > map[curCodeB] || map[curCodeB] == undefined ? curDimCount = map[curCodeA] : curDimCount = map[curCodeB];
@@ -70,10 +67,13 @@ function showResult() {
         map[curCodeA] == undefined || map[curCodeB] == undefined ? curDimPercent = 100 : curDimPercent = (curDimCount/(map[curCodeA] + map[curCodeB])*100).toFixed(1);
         // concat to resultStr
         curDimName == curNameA ? resultStr += curCodeA : resultStr += curCodeB;
+        // result details
         $('#dim'+i).html(curDimName + " : " + curDimCount + " (" + curDimPercent + "%)");
     }
 
     $('#result h2').html('Your\'re an ' + resultStr.toUpperCase());
+    $('#questions').css('display', 'none');
+    $('#result').css('display', 'block');
 }
 
 $(document).ready( function() {
@@ -81,34 +81,26 @@ $(document).ready( function() {
     // question order and start up
     for (let i = 1; i <= Object.keys(questions).length; i++) {
         questionOrder.push(i);
-        if (i == Object.keys(questions).length && config.randomizeQuestions) {
-            shuffleArray(questionOrder);
-        } else if (i == 1) {
-            writeAll();
+        if (i == Object.keys(questions).length) {
+            if (config.randomizeQuestions) {
+            shuffleArray(questionOrder)
+            }
+        updateDom()
         }
     }
 
+    // button event listeners
     $('.answer').click( function(e) {
         
-        if (pointer == 1) {
-            e.target.id == 'a1' ? results.push(questions["question" + pointer].answer1Code) : results.push(questions["question" + pointer].answer2Code);
-            pointer++;
-            writeAll();
-        } else if (pointer <= Object.keys(questions).length) {
-            e.target.id == 'a1' ? results.push(questions["question" + pointer].answer1Code) : results.push(questions["question" + pointer].answer2Code);
-            pointer++;
-            if (pointer > Object.keys(questions).length) {
-                showResult();
-            } else {
-                writeAll(); 
-            }
-        }
+        e.target.id == 'a1' ? results.push(questions["question" + pointer].answer1Code) : results.push(questions["question" + pointer].answer2Code);
+        pointer++;
+        pointer > Object.keys(questions).length ? showResult() : updateDom(); 
     });
 
     $('#back').click( function() {
         pointer--;
         results.pop();
-        writeAll();    
+        updateDom();    
     });
 
     $('#reset').click( function() {
@@ -117,6 +109,6 @@ $(document).ready( function() {
         if (config.randomizeQuestions) {
             shuffleArray(questionOrder);
         }
-        writeAll();
+        updateDom();
     });
-});
+})
