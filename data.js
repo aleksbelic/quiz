@@ -2,7 +2,7 @@ const config = {
 
     randomizeQuestions : true,
     randomizeAnswers : true
-};
+}
 
 const dimensions = {
 
@@ -30,7 +30,7 @@ const dimensions = {
         nameB : "Judging",
         codeB : "j"
     }
-};
+}
 
 const questions = {
 
@@ -127,5 +127,4 @@ const questions = {
         answer2 : "Answer J",
         answer2Code : "j"
     }
-};
-
+}
